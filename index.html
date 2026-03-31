@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WattWise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+
+    
+<div class="bg-grid"></div>
+
+<div class="bg-glow"></div>
+
+
+<div class="app-shell">
+
+  
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      </div>
+      <span class="logo-text">WattWise</span>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-btn active" onclick="show('home', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-btn" onclick="show('devices', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Devices</span>
+      </button>
+      <button class="nav-btn" onclick="show('suggestions', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>AI Insights</span>
+      </button>
+      <button class="nav-btn" onclick="show('account', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Account</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="power-status">
+        <span class="pulse-dot"></span>
+        <span>Live Monitoring</span>
+      </div>
+    </div>
+  </aside>
+
+
+
+  <main class="main">
+
+    
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">Dashboard</div>
+      <div class="topbar-right">
+        <div class="user-chip" id="topbarUser" style="display:none"></div>
+        <button class="mode-btn" onclick="toggleMode()" title="Toggle light/dark">
+          <svg id="modeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    
+    <div id="home" class="section active">
+      <div class="hero-stats">
+        <div class="stat-card primary">
+          <div class="stat-label">Total Usage</div>
+          <div class="stat-value" id="heroKwh">0.00 <span>kWh</span></div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="kwhBar" style="width:0%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Est. Daily Cost</div>
+          <div class="stat-value" id="heroCost">0 <span>RWF</span></div>
+        </div>
+        <div class="stat-card accent-month">
+          <div class="stat-label">Est. Monthly Cost</div>
+          <div class="stat-value" id="heroMonthly">0 <span>RWF</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Devices</div>
+          <div class="stat-value" id="heroDevices">0 <span>active</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Top Consumer</div>
+          <div class="stat-value small" id="heroTop">—</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Device Breakdown</h2>
+        <button class="cta-btn" onclick="show('devices', document.querySelector('.nav-btn:nth-child(2)'))">+ Add Device</button>
+      </div>
+
+      <div id="homeDeviceList" class="device-grid"></div>
+
+      <div class="empty-state" id="homeEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <p>No devices yet. Add your first device to start tracking.</p>
+        <button class="cta-btn" onclick="show('devices', document.querySelector('.nav-btn:nth-child(2)'))">Get Started</button>
+      </div>
+    </div>
+
+    
+    <div id="devices" class="section">
+      <div class="form-card">
+        <h3>Add a Device</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Device Name</label>
+            <input id="name" placeholder="e.g. Refrigerator" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Power (Watts)</label>
+            <input id="watts" type="number" placeholder="e.g. 150">
+          </div>
+          <div class="form-group">
+            <label>Hours / Day</label>
+            <input id="hours" type="number" placeholder="e.g. 8">
+          </div>
+          <button class="cta-btn add-btn" onclick="addDevice()">Add Device</button>
+        </div>
+        <div id="formError" class="form-error"></div>
+      </div>
+
+      <div class="section-header">
+        <h2>Your Devices</h2>
+        <div class="sort-label">Sorted by usage ↓</div>
+      </div>
+
+      <div id="list" class="devices-table-wrap">
+        <div class="empty-state" id="devicesEmpty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <p>No devices added yet.</p>
+        </div>
+      </div>
+
+      <div class="results-bar" id="results"></div>
+    </div>
+
+    
+    <div id="suggestions" class="section">
+
+      <div class="insights-grid">
+
+        
+        <div class="insight-card">
+          <div class="insight-header">
+            <div class="insight-icon ai">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3"/></svg>
+            </div>
+            <div>
+              <h3>AI Power Advisor</h3>
+              <p class="insight-sub">Powered by Claude AI</p>
+            </div>
+          </div>
+
+          <div class="api-key-section" id="apiKeySection" style="display:none">
+            <label>Groq API Key</label>
+            <div class="key-row">
+              <input type="password" id="apiKeyInput" placeholder="gsk_...">
+              <button class="cta-btn" onclick="saveApiKey()">Save</button>
+            </div>
+            <p class="hint">Your key is stored locally in your browser and only sent to Groq's servers.</p>
+          </div>
+
+          <button class="cta-btn full-width" onclick="getAISuggestions()" id="aiBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Analyze My Usage
+          </button>
+
+          <div id="aiOutput" class="ai-output"></div>
+        </div>
+
+        
+        <div class="insight-card">
+          <div class="insight-header">
+            <div class="insight-icon compare">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div>
+              <h3>Did I Get My Money's Worth?</h3>
+              <p class="insight-sub">Enter your token details to find out</p>
+            </div>
+          </div>
+
+          <div class="compare-inputs">
+            <div class="form-group">
+              <label>kWh Purchased</label>
+              <input id="purchasedUnits" type="number" placeholder="e.g. 50">
+            </div>
+            <div class="form-group">
+              <label>Days It Lasted</label>
+              <input id="purchasedDays" type="number" placeholder="e.g. 12">
+            </div>
+          </div>
+
+          <p class="hint" style="margin-top:-8px">Based on your devices, we'll estimate how long that token <em>should</em> have lasted.</p>
+
+          <button class="cta-btn full-width" onclick="compareUsage()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Check My Token
+          </button>
+
+          <div id="compareResult" class="compare-result"></div>
+        </div>
+
+      </div>
+
+      
+      <div class="tips-card" id="tipsSection">
+        <h3>Quick Optimization Tips</h3>
+        <div id="quickTips" class="tips-grid"></div>
+      </div>
+    </div>
+
+   
+
+
+    <div id="account" class="section">
+      <div class="auth-wrap">
+
+        <div id="auth" class="auth-card">
+          <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchTab('signup')">Sign Up</button>
+            <button class="auth-tab" onclick="switchTab('login')">Log In</button>
+          </div>
+
+          <div id="signupForm" class="auth-form">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input id="signupName" placeholder="Lucas...">
+            </div>
+            <div class="form-group">
+              <label>Age</label>
+              <input id="signupAge" type="number" placeholder="Your age">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input id="signupEmail" type="email" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input id="signupPassword" type="password" placeholder="Create a password">
+            </div>
+            <button class="cta-btn full-width" onclick="signup()">Create Account</button>
+            <div id="signupError" class="form-error"></div>
+          </div>
+
+
+
+          <div id="loginForm" class="auth-form" style="display:none">
+            <div class="form-group">
+              <label>Name</label>
+              <input id="loginName" placeholder="Your name">
+            </div>
+            
+            <div class="form-group">
+              <label>Password</label>
+              <input id="loginPassword" type="password" placeholder="Your password">
+            </div>
+            <button class="cta-btn full-width" onclick="login()">Log In</button>
+            <div id="loginError" class="form-error"></div>
+          </div>
+        </div>
+
+        <div id="profile" class="profile-card" style="display:none">
+          <div class="avatar" id="avatarInitial"></div>
+          <div id="userInfo" class="user-info"></div>
+          <div class="profile-stats">
+            <div class="p-stat">
+              <span class="p-stat-val" id="profileDevices">0</span>
+              <span class="p-stat-label">Devices</span>
+            </div>
+            <div class="p-stat">
+              <span class="p-stat-val" id="profileKwh">0</span>
+              <span class="p-stat-label">kWh/day</span>
+            </div>
+            <div class="p-stat">
+              <span class="p-stat-val" id="profileCost">0</span>
+              <span class="p-stat-label">RWF/day</span>
+            </div>
+          </div>
+          <button class="logout-btn" onclick="logout()">Log Out</button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
