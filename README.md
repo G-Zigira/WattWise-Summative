@@ -94,23 +94,23 @@ To get your own key:
  
 ## Deployment
  
-The application is deployed across two web servers (`web-01` and `web-02`) with a load balancer (`lb-01`) distributing traffic between them. All three are Amazon EC2 instances running Ubuntu with Nginx.
+The application is deployed across two web servers (`server1` and `server2`) with a load balancer distributing traffic between them.
  
-### Web Servers (web-01 & web-02)
+### Web Servers (server1 & server2)
  
 1. SSH into the server
 2. Make sure Nginx is installed and running
 3. Copy the project files to the web root
  
-**Repeat these steps for both `web-01` and `web-02`.**
+**Repeat these steps for both `server1` and `server2`.**
  
 ---
  
-### Load Balancer (lb-01)
+### Load Balancer 
  
 The load balancer uses Nginx's `upstream` directive to round-robin traffic between the two web servers.
  
-1. SSH into lb-01
+1. SSH into the load balancer
 2. Install Nginx
 3. Edit the default Nginx config
 4. Replace the contents with this configuration
