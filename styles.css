@@ -772,7 +772,7 @@ button { font-family: var(--display); }
 }
 
 .ai-output.loading::after {
-  content: 'Analyzing your devices...';
+  content: 'Analyzing all your devices...';
   display: block;
   font-family: var(--mono);
   color: var(--neon);
@@ -867,7 +867,7 @@ button { font-family: var(--display); }
 }
 
 .tip-item::before {
-  content: '⚡';
+  content: '!';
   position: absolute;
   left: 12px;
   top: 14px;

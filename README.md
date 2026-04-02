@@ -1,6 +1,7 @@
 # WattWise
  
 **WattWise** is a web application that helps users in Rwanda track their home electricity consumption, estimate costs, get AI powered efficiency tips, and verify whether their prepaid electricity tokens gave them their money's worth.
+its curently running on https://watwise.rezenith.tech/
  
 ---
  
@@ -44,11 +45,7 @@ Used to load the application's custom fonts (`Exo 2` and `Share Tech Mono`) for 
 WattWise is a pure frontend application — no build step, no framework, no Node.js required.
  
 **1. Clone the repository:**
-```bash
-git clone https://github.com/YOUR_USERNAME/wattwise.git
-cd wattwise
-```
- 
+
 **2. Open the app:**
  
 Simply open `index.html` in your browser:
